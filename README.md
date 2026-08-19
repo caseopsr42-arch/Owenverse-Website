@@ -1,6 +1,6 @@
 # The Owenverse Website
 
-Static website for The Owenverse podcast. The site uses `data/episodes.json` for episode content and currently renders with Tailwind's CDN during local development. A local Tailwind build is prepared in `package.json` and `css/input.css`.
+Static website for The Owenverse podcast. The site uses `data/episodes.json` for episode content and loads the locally compiled Tailwind stylesheet at `css/tailwind.css`.
 
 ## Local preview
 
@@ -24,21 +24,21 @@ Cloudflare Pages or Netlify can apply the `_headers` file. GitHub Pages does not
 
 ## Local Tailwind build
 
-Node.js/npm must be installed first. Then run:
+Node.js/npm must be installed first. To regenerate the production stylesheet after changing Tailwind classes, run:
 
 ```powershell
 npm install
 npm run build
 ```
 
-After the generated `css/tailwind.css` exists, change each page to load `css/tailwind.css` instead of the temporary CDN configuration, then remove the CDN allowance and `unsafe-eval` from `_headers`.
+The generated `css/tailwind.css` is committed because Cloudflare Pages can serve the static project directly. The pages no longer load Tailwind from a runtime CDN.
 
 ## Manual launch checklist
 
 - Create and connect the hosting project and custom Namecheap domain.
 - Enforce HTTPS in the hosting dashboard.
 - Add the `YOUTUBE_API_KEY` GitHub Actions secret.
-- Replace the placeholder domain in `robots.txt` and `sitemap.xml`.
+- Confirm `robots.txt` and `sitemap.xml` use `https://theowenverse.com`.
 - Have an attorney review `privacy.html` and `terms.html` before publishing.
 - Obtain a signed guest release before recording or publishing guest content.
 - Enable Google Forms spam protection and response limits.

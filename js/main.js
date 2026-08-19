@@ -207,7 +207,7 @@
     }
 
     if (needsFeatured) renderFeatured(episodes[0]);
-    if (previewEl) renderEpisodeGrid(previewEl, episodes.slice(1, 5));
+    if (previewEl) renderEpisodeGrid(previewEl, episodes.slice(1, 4));
     if (gridEl) renderEpisodeGrid(gridEl, episodes);
   });
 })();

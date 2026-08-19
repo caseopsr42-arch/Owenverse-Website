@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- TODO: replace https://YOUR-DOMAIN.example after connecting the Namecheap domain. -->
-  <url><loc>https://YOUR-DOMAIN.example/</loc></url>
-  <url><loc>https://YOUR-DOMAIN.example/episodes.html</loc></url>
-  <url><loc>https://YOUR-DOMAIN.example/about.html</loc></url>
-  <url><loc>https://YOUR-DOMAIN.example/guest.html</loc></url>
-  <url><loc>https://YOUR-DOMAIN.example/privacy.html</loc></url>
-  <url><loc>https://YOUR-DOMAIN.example/terms.html</loc></url>
+  <url><loc>https://theowenverse.com/</loc></url>
+  <url><loc>https://theowenverse.com/episodes.html</loc></url>
+  <url><loc>https://theowenverse.com/about.html</loc></url>
+  <url><loc>https://theowenverse.com/guest.html</loc></url>
+  <url><loc>https://theowenverse.com/privacy.html</loc></url>
+  <url><loc>https://theowenverse.com/terms.html</loc></url>
 </urlset>
