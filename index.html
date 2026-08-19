@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Owenverse — Real Stories. Real Turning Points.</title>
+  <meta name="description" content="The Owenverse is a podcast hosted by Owen Jefferies, spotlighting real people at real turning points. Watch the latest episodes and follow the show.">
+  <meta property="og:title" content="The Owenverse — Real Stories. Real Turning Points.">
+  <meta property="og:description" content="A podcast hosted by Owen Jefferies, spotlighting real people at real turning points.">
+  <meta property="og:type" content="website">
+  <!-- TODO: replace with a dedicated /assets/og-image.jpg once available -->
+  <meta property="og:image" content="https://i.ytimg.com/an_webp/5DNdPxGXLs4/mqdefault_6s.webp">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#0a0a0a',
+            surface: '#1a1a1a',
+            orange: { DEFAULT: '#ff6a00', light: '#ff8a3d', dark: '#cc5500' }
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-body">
+  <div id="scroll-progress"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+      <a href="index.html" class="flex items-center gap-3 font-display text-3xl tracking-wide text-white">
+        <img src="assets/Logos/Owenverse_Logo1.PNG" alt="The Owenverse" class="brand-mark">
+        <span>THE <span class="text-gradient-orange">OWENVERSE</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="episodes.html" class="nav-link">Episodes</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="guest.html" class="nav-link">Be a Guest</a>
+      </nav>
+
+      <div class="hidden md:block">
+        <a href="guest.html" class="btn-accent text-sm">Apply to Be a Guest</a>
+      </div>
+
+      <button id="menu-toggle" class="md:hidden text-white p-2" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="mobile-menu" class="md:hidden px-5 sm:px-8 flex flex-col gap-1 font-heading" aria-label="Mobile">
+      <a href="index.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">Home</a>
+      <a href="episodes.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">Episodes</a>
+      <a href="about.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">About</a>
+      <a href="guest.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">Be a Guest</a>
+      <a href="guest.html" class="btn-accent justify-center my-4">Apply to Be a Guest</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-grain"></div>
+      <div class="max-w-5xl mx-auto px-5 sm:px-8 py-24 text-center relative z-10">
+        <p class="pill mb-6" data-reveal>The Owenverse Podcast</p>
+        <h1 class="hero-motto text-[14vw] sm:text-[8rem] md:text-[9rem] font-display leading-none" data-reveal data-reveal-delay="1">
+          REAL STORIES.<br>REAL TURNING POINTS.
+        </h1>
+        <p class="max-w-2xl mx-auto mt-8 text-lg sm:text-xl" style="color: var(--grey-light);" data-reveal data-reveal-delay="2">
+          Hosted by Owen Jefferies — conversations with real people about the moments that changed everything.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center" data-reveal data-reveal-delay="3">
+          <a href="#featured" class="btn-accent">
+            Watch Latest Episode
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="guest.html" class="btn-outline">Apply to Be a Guest</a>
+        </div>
+      </div>
+      <a href="#featured" class="scroll-cue" aria-label="Scroll to featured episode">
+        <span class="text-xs uppercase tracking-widest font-heading">Scroll</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee py-4" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item is-accent">REAL STORIES.</span>
+        <span class="marquee__item">REAL TURNING POINTS.</span>
+        <span class="marquee__item is-accent">REAL STORIES.</span>
+        <span class="marquee__item">REAL TURNING POINTS.</span>
+        <span class="marquee__item is-accent">REAL STORIES.</span>
+        <span class="marquee__item">REAL TURNING POINTS.</span>
+        <span class="marquee__item is-accent">REAL STORIES.</span>
+        <span class="marquee__item">REAL TURNING POINTS.</span>
+      </div>
+    </div>
+
+    <!-- ============ FEATURED EPISODE ============ -->
+    <section id="featured" class="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+      <div class="mb-10" data-reveal>
+        <p class="pill mb-4">Latest Episode</p>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Fresh off the mic</h2>
+      </div>
+      <div class="grid md:grid-cols-5 gap-10 items-start">
+        <div class="md:col-span-3" data-reveal data-reveal-delay="1">
+          <div id="featured-video-frame" class="video-frame" aria-live="polite"></div>
+        </div>
+        <div class="md:col-span-2" data-reveal data-reveal-delay="2">
+          <p id="featured-date" class="text-xs uppercase tracking-widest font-semibold mb-3" style="color: var(--orange);"></p>
+          <h3 id="featured-title" class="font-heading text-2xl font-bold text-white leading-snug mb-4"></h3>
+          <p id="featured-description" class="text-base mb-6" style="color: var(--grey);"></p>
+          <a id="featured-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">
+            Watch on YouTube
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- ============ MORE EPISODES PREVIEW ============ -->
+    <section class="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-10" data-reveal>
+        <div>
+          <p class="pill mb-4">More To Watch</p>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Recent episodes</h2>
+        </div>
+        <a href="episodes.html" class="btn-outline text-sm">
+          Watch More Episodes
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div id="episode-preview-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- ============ GUEST CTA ============ -->
+    <section class="max-w-5xl mx-auto px-5 sm:px-8 py-20 md:py-28 text-center">
+      <div data-reveal>
+        <p class="pill mb-4">Have a Story?</p>
+        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mb-6">
+          Real turning points deserve <span class="text-gradient-orange">real airtime.</span>
+        </h2>
+        <p class="max-w-xl mx-auto mb-8" style="color: var(--grey);">
+          If you've lived through a moment that changed the direction of your life, The Owenverse wants to hear it.
+        </p>
+        <a href="guest.html" class="btn-accent">
+          Apply to Be a Guest
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ FOLLOW BAND ============ -->
+    <section class="border-t" style="border-color: var(--border); background: var(--bg-alt);">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+        <div class="text-center mb-12" data-reveal>
+          <p class="pill mb-4">Don't Miss an Episode</p>
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Follow The Owenverse</h2>
+        </div>
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 max-w-3xl mx-auto" data-reveal data-reveal-delay="1">
+          <a href="https://www.youtube.com/@theowenverse" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg>
+            <span class="text-xs font-heading font-semibold">YouTube</span>
+          </a>
+          <a href="https://www.instagram.com/theowenversee" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+            <span class="text-xs font-heading font-semibold">Instagram</span>
+          </a>
+          <a href="https://www.tiktok.com/@theowenverse" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.5 2.3 2 4 4.5 4.3"/></svg>
+            <span class="text-xs font-heading font-semibold">TikTok</span>
+          </a>
+          <a href="https://open.spotify.com/show/6nN5gaXMlAlLSZEyeM9yhn" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Spotify">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M7.5 10c3-1 6.5-.6 9 1"/><path d="M7.5 13c2.3-.7 5-.4 7 .8"/><path d="M8 16c1.8-.5 3.6-.3 5 .6"/></svg>
+            <span class="text-xs font-heading font-semibold">Spotify</span>
+          </a>
+          <a href="https://www.facebook.com/share/1CkGfYJGEG/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M13.5 17v-5h1.8l.3-2h-2.1V8.8c0-.6.2-1 1.1-1h1.1V6.1c-.4-.1-1-.1-1.6-.1-1.7 0-2.8 1-2.8 2.8V10H10v2h1.3v5"/></svg>
+            <span class="text-xs font-heading font-semibold">Facebook</span>
+          </a>
+          <a href="https://www.threads.com/@theowenjefferiesshow" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Threads">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20"/></svg>
+            <span class="text-xs font-heading font-semibold">Threads</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t" style="border-color: var(--border);">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-3 gap-10">
+      <div>
+        <a href="index.html" class="font-display text-2xl text-white">THE <span class="text-gradient-orange">OWENVERSE</span></a>
+        <p class="text-sm mt-3" style="color: var(--grey);">Real stories. Real turning points.</p>
+      </div>
+      <div>
+        <p class="font-heading font-semibold text-white text-sm uppercase tracking-widest mb-4">Explore</p>
+        <ul class="space-y-2 text-sm" style="color: var(--grey);">
+          <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="episodes.html" class="hover:text-white transition-colors">Episodes</a></li>
+          <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+          <li><a href="guest.html" class="hover:text-white transition-colors">Be a Guest</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-heading font-semibold text-white text-sm uppercase tracking-widest mb-4">Follow</p>
+        <ul class="space-y-2 text-sm" style="color: var(--grey);">
+          <li><a href="https://www.youtube.com/@theowenverse" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">YouTube</a></li>
+          <li><a href="https://www.instagram.com/theowenversee" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@theowenverse" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">TikTok</a></li>
+          <li><a href="https://open.spotify.com/show/6nN5gaXMlAlLSZEyeM9yhn" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Spotify</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t py-6 text-center text-xs" style="border-color: var(--border); color: var(--grey);">
+      &copy; <span data-year></span> The Owenverse. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
