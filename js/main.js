@@ -72,6 +72,25 @@
     el.textContent = new Date().getFullYear();
   });
 
+  /* ---------- Third-party disclosure ---------- */
+  const consentKey = 'owenverse-third-party-notice-dismissed';
+  if (!localStorage.getItem(consentKey)) {
+    const notice = document.createElement('aside');
+    notice.className = 'privacy-notice';
+    notice.setAttribute('role', 'status');
+    notice.innerHTML = `
+      <p>This site uses embedded YouTube video and links to Google Forms. Those services may set their own cookies.</p>
+      <div class="privacy-notice__actions">
+        <a href="privacy.html">Privacy</a>
+        <button type="button" aria-label="Dismiss privacy notice">Got it</button>
+      </div>`;
+    notice.querySelector('button').addEventListener('click', () => {
+      localStorage.setItem(consentKey, 'true');
+      notice.remove();
+    });
+    document.body.appendChild(notice);
+  }
+
   /* =========================================================
      Episode data: fetch, parse, render
      ========================================================= */
@@ -152,7 +171,7 @@
 
     const videoId = getYouTubeId(episode.url);
     if (frame && videoId) {
-      frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" title="${escapeHTML(episode.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" title="${escapeHTML(episode.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
     if (titleEl) titleEl.textContent = episode.title;
     if (descEl) descEl.textContent = episode.description;

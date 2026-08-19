@@ -1,4 +1,4 @@
-"""Update data/episodes.json from the Owenverse YouTube channel feed."""
+"""Update data/episodes.json from the Owenverse YouTube Data API."""
 
 from __future__ import annotations
 

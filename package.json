@@ -1,0 +1,14 @@
+{
+  "name": "owenverse-website",
+  "private": true,
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./css/input.css -o ./css/tailwind.css --minify",
+    "check": "npx @tailwindcss/cli -i ./css/input.css -o ./css/tailwind.css --minify",
+    "a11y": "axe http://localhost:5500/index.html http://localhost:5500/episodes.html http://localhost:5500/about.html http://localhost:5500/guest.html"
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.10.2",
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12"
+  }
+}

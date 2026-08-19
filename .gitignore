@@ -1,0 +1,22 @@
+# Local environment and credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials*.json
+service-account*.json
+
+# Local tooling
+node_modules/
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Generated build output
+site/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,10 @@
+/*
+  Cloudflare Pages / Netlify response headers.
+  GitHub Pages does not apply this file; use Cloudflare in front of Pages or deploy here.
+*/
+  # Temporary CDN allowance. Remove https://cdn.tailwindcss.com and unsafe-eval after npm run build replaces the runtime CDN.
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://i.ytimg.com https://ugc.production.linktr.ee; frame-src https://www.youtube-nocookie.com; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://forms.gle https://docs.google.com
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
