@@ -178,10 +178,11 @@ body {
   align-items: center;
   gap: 0.5rem;
   color: var(--grey);
-  animation: bounce 2.2s infinite;
+  /* Named uniquely: Tailwind v4 ships its own "bounce" keyframes that would otherwise win the cascade. */
+  animation: scroll-cue-bounce 2.2s infinite;
 }
 
-@keyframes bounce {
+@keyframes scroll-cue-bounce {
   0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
   50% { transform: translate(-50%, 10px); opacity: 1; }
 }
