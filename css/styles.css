@@ -13,7 +13,7 @@
   --grey-light: #d0dbe7;
   --white: #f4f7fb;
   --orange: #ff6a00;
-  --orange-light: #ff8a3d;
+  --orange-light: #ffad70;
   --orange-dark: #cc5500;
 }
 
@@ -30,6 +30,23 @@ body {
   color: var(--grey-light);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 110;
+  padding: 0.7rem 1rem;
+  color: #0a0a0a;
+  background: var(--orange-light);
+  font-weight: 700;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 ::selection {
@@ -162,10 +179,7 @@ body {
 .hero-motto {
   font-family: 'Bebas Neue', sans-serif;
   line-height: 0.95;
-  background: linear-gradient(100deg, var(--orange-light) 10%, var(--orange) 50%, var(--orange-dark) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--white);
 }
 
 .scroll-cue {
@@ -230,13 +244,18 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .marquee__track { animation: none; }
   .scroll-cue { animation: none; }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* --------------------------------------------
    Scroll reveal
    -------------------------------------------- */
 [data-reveal] {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
@@ -294,7 +313,7 @@ button:focus-visible {
 
 .btn-outline:hover {
   border-color: var(--orange);
-  background: rgba(255, 106, 0, 0.08);
+  background: var(--surface);
 }
 
 /* --------------------------------------------
@@ -412,10 +431,7 @@ button:focus-visible {
    Misc
    -------------------------------------------- */
 .text-gradient-orange {
-  background: linear-gradient(100deg, var(--orange-light), var(--orange));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--orange-light);
 }
 
 .pill {
@@ -426,9 +442,9 @@ button:focus-visible {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--white);
   border: 1px solid rgba(255, 106, 0, 0.4);
-  background: rgba(255, 106, 0, 0.08);
+  background: var(--surface);
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
 }

@@ -30,11 +30,19 @@
     menuToggle.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('is-open');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
+      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen) {
+        mobileMenu.removeAttribute('inert');
+      } else {
+        mobileMenu.setAttribute('inert', '');
+      }
     });
     mobileMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('is-open');
         menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileMenu.setAttribute('inert', '');
       });
     });
   }
@@ -50,7 +58,10 @@
 
   /* ---------- Scroll reveal ---------- */
   const revealTargets = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window && revealTargets.length) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    revealTargets.forEach((el) => el.classList.add('is-visible'));
+  } else if ('IntersectionObserver' in window && revealTargets.length) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -77,7 +88,6 @@
   if (!localStorage.getItem(consentKey)) {
     const notice = document.createElement('aside');
     notice.className = 'privacy-notice';
-    notice.setAttribute('role', 'status');
     notice.innerHTML = `
       <p>This site uses embedded YouTube video and links to Google Forms. Those services may set their own cookies.</p>
       <div class="privacy-notice__actions">
@@ -125,9 +135,9 @@
         </a>
         <div class="p-5">
           <p class="text-xs uppercase tracking-widest text-orange-500 font-semibold mb-2" style="color: var(--orange);">${escapeHTML(ep.date)}</p>
-          <h3 class="font-heading text-lg font-semibold text-white leading-snug mb-2">
+          <h2 class="font-heading text-lg font-semibold text-white leading-snug mb-2">
             <a href="${ep.url}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(ep.title)}" class="hover:underline">${escapeHTML(ep.title)}</a>
-          </h3>
+          </h2>
           <p class="text-sm" style="color: var(--grey);">${escapeHTML(ep.description)}</p>
         </div>
       </article>`;
@@ -135,15 +145,25 @@
 
   function escapeHTML(str) {
     const div = document.createElement('div');
-    div.textContent = str == null ? '' : String(str);
+    const decoded = document.createElement('textarea');
+    decoded.innerHTML = str == null ? '' : String(str);
+    div.textContent = decoded.value;
     return div.innerHTML;
+  }
+
+  function decodeHTML(str) {
+    const decoded = document.createElement('textarea');
+    decoded.innerHTML = str == null ? '' : String(str);
+    return decoded.value;
   }
 
   function renderEpisodeGrid(container, episodes) {
     if (!container) return;
     container.innerHTML = episodes.map(episodeCardHTML).join('');
     const newReveals = container.querySelectorAll('[data-reveal]');
-    if ('IntersectionObserver' in window) {
+    if (reduceMotion) {
+      newReveals.forEach((el) => el.classList.add('is-visible'));
+    } else if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -171,7 +191,7 @@
 
     const videoId = getYouTubeId(episode.url);
     if (frame && videoId) {
-      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" title="${escapeHTML(episode.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?cc_load_policy=1" title="${escapeHTML(episode.title)}" aria-describedby="featured-description" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
     if (titleEl) titleEl.textContent = episode.title;
     if (descEl) descEl.textContent = episode.description;
@@ -184,7 +204,14 @@
       const res = await fetch('data/episodes.json');
       if (!res.ok) throw new Error('Failed to load episode data');
       const data = await res.json();
-      return Array.isArray(data.episodes) ? data.episodes : [];
+      return Array.isArray(data.episodes)
+        ? data.episodes.map((episode) => ({
+          ...episode,
+          title: decodeHTML(episode.title),
+          description: decodeHTML(episode.description),
+          date: decodeHTML(episode.date)
+        }))
+        : [];
     } catch (err) {
       console.error('Episode data could not be loaded:', err);
       return [];

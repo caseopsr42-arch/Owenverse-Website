@@ -22,13 +22,14 @@
   <link rel="stylesheet" href="css/tailwind.css">
 </head>
 <body class="font-body">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div id="scroll-progress"></div>
 
   <!-- ============ HEADER ============ -->
   <header id="site-header">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
       <a href="index.html" class="flex items-center gap-3 font-display text-3xl tracking-wide text-white">
-        <img src="assets/Logos/Owenverse_Logo1.PNG" alt="The Owenverse" class="brand-mark">
+        <img src="assets/Logos/Owenverse_Logo1.PNG" alt="" class="brand-mark">
         <span>THE <span class="text-gradient-orange">OWENVERSE</span></span>
       </a>
 
@@ -52,7 +53,7 @@
       </button>
     </div>
 
-    <nav id="mobile-menu" class="md:hidden px-5 sm:px-8 flex flex-col gap-1 font-heading" aria-label="Mobile">
+    <nav id="mobile-menu" class="md:hidden px-5 sm:px-8 flex flex-col gap-1 font-heading" aria-label="Mobile" aria-hidden="true" inert>
       <a href="index.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">Home</a>
       <a href="episodes.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">Episodes</a>
       <a href="about.html" class="nav-link block py-3 border-t" style="border-color: var(--border);">About</a>
@@ -61,7 +62,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- ============ PAGE HEADER ============ -->
     <section class="max-w-5xl mx-auto px-5 sm:px-8 pt-20 pb-12 md:pt-28">
       <p class="pill mb-4" data-reveal>The Show</p>
@@ -172,6 +173,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260819"></script>
 </body>
 </html>
