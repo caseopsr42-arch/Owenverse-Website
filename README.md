@@ -16,7 +16,7 @@ Open <http://localhost:5500/index.html>.
 
 Never hardcode an API key into client-side JavaScript, HTML, CSS, JSON, or any other file shipped to the browser. If a future feature needs the YouTube Data API, Google Maps, or another billed service, the key must live server-side in a serverless function, edge function, or protected CI secret. Any such function should have rate limiting, origin checks, quota limits, and monitoring before going live.
 
-The episode updater in `scripts/update_episodes.py` is designed to run in GitHub Actions with `YOUTUBE_API_KEY` stored as a GitHub repository secret. It must never be called from browser JavaScript.
+The episode updater in `.github/scripts/update_episodes.py` is designed to run in GitHub Actions with `YOUTUBE_API_KEY` stored as a GitHub repository secret. It must never be called from browser JavaScript.
 
 ## Deployment
 

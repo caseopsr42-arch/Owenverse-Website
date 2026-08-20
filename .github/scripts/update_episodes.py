@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 
 CHANNEL_ID = "UC-y0fmq1aQ4HmtvLr60aJAw"
 API_URL = "https://www.googleapis.com/youtube/v3/search"
-DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "episodes.json"
+DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "episodes.json"
 
 
 def fetch_feed(api_key: str) -> bytes:

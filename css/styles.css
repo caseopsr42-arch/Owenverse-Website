@@ -179,7 +179,10 @@ body {
 .hero-motto {
   font-family: 'Bebas Neue', sans-serif;
   line-height: 0.95;
-  color: var(--white);
+  background: linear-gradient(100deg, var(--orange-light) 10%, var(--orange) 50%, var(--orange-dark) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .scroll-cue {

@@ -111,32 +111,59 @@
       <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="#0a0a0a"/>
     </svg>`;
 
+  const YOUTUBE_HOSTS = new Set(['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be']);
+
+  function isYouTubeHost(hostname) {
+    return YOUTUBE_HOSTS.has(hostname.toLowerCase());
+  }
+
   function getYouTubeId(url) {
     try {
       const parsed = new URL(url);
-      if (parsed.hostname.includes('youtu.be')) {
-        return parsed.pathname.replace('/', '');
+      if (parsed.protocol !== 'https:' || !isYouTubeHost(parsed.hostname)) {
+        return '';
       }
-      return parsed.searchParams.get('v') || '';
+      const videoId = parsed.hostname === 'youtu.be'
+        ? parsed.pathname.replace('/', '')
+        : parsed.searchParams.get('v') || '';
+      return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : '';
     } catch (err) {
       return '';
     }
   }
 
+  function getSafeThumbnail(url) {
+    try {
+      const parsed = new URL(url);
+      if (parsed.protocol !== 'https:' || !['img.youtube.com', 'i.ytimg.com'].includes(parsed.hostname.toLowerCase())) {
+        return '';
+      }
+      return parsed.href;
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function getEpisodeURL(videoId) {
+    return videoId ? `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}` : '#';
+  }
+
   function episodeCardHTML(ep) {
     const videoId = getYouTubeId(ep.url);
     // Prefer YouTube's 16:9 artwork so older episodes are not cropped from 4:3 thumbnails.
-    const thumbSrc = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : ep.thumbnail;
+    const thumbSrc = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : getSafeThumbnail(ep.thumbnail);
+    const fallbackSrc = getSafeThumbnail(ep.thumbnail);
+    const episodeURL = getEpisodeURL(videoId);
     return `
       <article class="episode-card" data-reveal>
-        <a href="${ep.url}" target="_blank" rel="noopener noreferrer" class="episode-card__thumb" title="${escapeHTML(ep.title)}" aria-label="Watch: ${escapeHTML(ep.title)}">
-          <img src="${thumbSrc}" onerror="this.onerror=null;this.src='${escapeHTML(ep.thumbnail)}';" alt="Thumbnail for ${escapeHTML(ep.title)}" loading="lazy" width="480" height="270">
+        <a href="${episodeURL}" target="_blank" rel="noopener noreferrer" class="episode-card__thumb" title="${escapeHTML(ep.title)}" aria-label="Watch: ${escapeHTML(ep.title)}">
+          <img src="${escapeHTML(thumbSrc)}" data-fallback-src="${escapeHTML(fallbackSrc)}" alt="Thumbnail for ${escapeHTML(ep.title)}" loading="lazy" width="480" height="270">
           <span class="episode-card__play">${PLAY_ICON}</span>
         </a>
         <div class="p-5">
           <p class="text-xs uppercase tracking-widest text-orange-500 font-semibold mb-2" style="color: var(--orange);">${escapeHTML(ep.date)}</p>
           <h2 class="font-heading text-lg font-semibold text-white leading-snug mb-2">
-            <a href="${ep.url}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(ep.title)}" class="hover:underline">${escapeHTML(ep.title)}</a>
+            <a href="${episodeURL}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(ep.title)}" class="hover:underline">${escapeHTML(ep.title)}</a>
           </h2>
           <p class="text-sm" style="color: var(--grey);">${escapeHTML(ep.description)}</p>
         </div>
@@ -160,6 +187,15 @@
   function renderEpisodeGrid(container, episodes) {
     if (!container) return;
     container.innerHTML = episodes.map(episodeCardHTML).join('');
+    container.querySelectorAll('img[data-fallback-src]').forEach((image) => {
+      image.addEventListener('error', () => {
+        const fallbackSrc = image.dataset.fallbackSrc;
+        if (fallbackSrc && image.src !== fallbackSrc) {
+          image.src = fallbackSrc;
+        }
+        image.removeAttribute('data-fallback-src');
+      }, { once: true });
+    });
     const newReveals = container.querySelectorAll('[data-reveal]');
     if (reduceMotion) {
       newReveals.forEach((el) => el.classList.add('is-visible'));
@@ -196,7 +232,7 @@
     if (titleEl) titleEl.textContent = episode.title;
     if (descEl) descEl.textContent = episode.description;
     if (dateEl) dateEl.textContent = episode.date;
-    if (linkEl) linkEl.href = episode.url;
+    if (linkEl) linkEl.href = getEpisodeURL(videoId);
   }
 
   async function loadEpisodes() {
