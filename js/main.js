@@ -148,6 +148,18 @@
     return videoId ? `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}` : '#';
   }
 
+  function isYouTubeShort(episode) {
+    if (/(^|\s)#shorts?\b/i.test(String(episode.title || ''))) {
+      return true;
+    }
+    try {
+      const parsed = new URL(episode.url);
+      return isYouTubeHost(parsed.hostname) && parsed.pathname.toLowerCase().startsWith('/shorts/');
+    } catch (err) {
+      return false;
+    }
+  }
+
   function episodeCardHTML(ep) {
     const videoId = getYouTubeId(ep.url);
     // Prefer YouTube's 16:9 artwork so older episodes are not cropped from 4:3 thumbnails.
@@ -241,7 +253,7 @@
       if (!res.ok) throw new Error('Failed to load episode data');
       const data = await res.json();
       return Array.isArray(data.episodes)
-        ? data.episodes.map((episode) => ({
+        ? data.episodes.filter((episode) => !isYouTubeShort(episode)).map((episode) => ({
           ...episode,
           title: decodeHTML(episode.title),
           description: decodeHTML(episode.description),

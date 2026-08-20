@@ -82,6 +82,29 @@ body {
   box-shadow: 0 0 44px rgba(255, 106, 0, 0.16);
 }
 
+.about-photo {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-photo--portrait {
+  aspect-ratio: 3 / 4;
+  max-height: 42rem;
+}
+
+.about-photo--landscape {
+  aspect-ratio: 3 / 2;
+}
+
 /* --------------------------------------------
    Scroll progress bar
    -------------------------------------------- */
