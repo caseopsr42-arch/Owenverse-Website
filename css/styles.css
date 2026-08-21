@@ -179,8 +179,13 @@ body {
    Hero
    -------------------------------------------- */
 .hero {
-  position: relative;
-  min-height: 92vh;
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: calc(100vh - 5rem);
+  min-height: 0;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -188,6 +193,16 @@ body {
     radial-gradient(circle at 18% 12%, rgba(255, 106, 0, 0.18), transparent 42%),
     radial-gradient(circle at 86% 76%, rgba(34, 88, 145, 0.3), transparent 54%),
     var(--bg);
+}
+
+/* Keep the fixed hero visible on entry, then let the page content pass over it. */
+.hero + .marquee {
+  margin-top: 92vh;
+}
+
+.hero ~ * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-grain {
