@@ -205,6 +205,10 @@ body {
   z-index: 1;
 }
 
+.hero ~ section {
+  background: var(--bg);
+}
+
 .hero-grain {
   position: absolute;
   inset: 0;
