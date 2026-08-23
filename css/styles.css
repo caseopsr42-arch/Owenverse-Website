@@ -460,6 +460,25 @@ button:focus-visible {
   color: var(--orange-light);
 }
 
+.footer-contact {
+  margin-top: 2rem;
+}
+
+.footer-email {
+  display: inline-block;
+  max-width: 100%;
+  color: var(--orange-light);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.footer-email:hover {
+  color: var(--white);
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
