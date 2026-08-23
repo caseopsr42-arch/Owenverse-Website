@@ -39,7 +39,6 @@ The generated `css/tailwind.css` is committed because Cloudflare Pages can serve
 - Enforce HTTPS in the hosting dashboard.
 - Add the `YOUTUBE_API_KEY` GitHub Actions secret.
 - Confirm `robots.txt` and `sitemap.xml` use `https://theowenverse.com`.
-- Have an attorney review `privacy.html` and `terms.html` before publishing.
 - Obtain a signed guest release before recording or publishing guest content.
 - Enable Google Forms spam protection and response limits.
 - Enable 2FA on GitHub, hosting, Google/YouTube, Namecheap, and social accounts.
