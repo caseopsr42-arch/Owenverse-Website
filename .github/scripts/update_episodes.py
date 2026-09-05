@@ -95,7 +95,7 @@ def load_existing() -> dict[str, dict[str, str]]:
 
 def parse_episodes(
     feed: bytes, existing: dict[str, dict[str, str]], durations: dict[str, int]
-) -> list[dict[str, str]]:
+) -> list[dict[str, object]]:
     data = json.loads(feed)
     episodes = []
 
@@ -117,13 +117,14 @@ def parse_episodes(
                 "description": previous.get("description") or snippet.get("description", "") or "Watch the latest conversation from The Owenverse.",
                 "thumbnail": thumbnail or f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg",
                 "url": f"https://www.youtube.com/watch?v={video_id}",
+                "durationSeconds": durations[video_id],
             }
         )
 
     return episodes
 
 
-def write_data(episodes: list[dict[str, str]]) -> bool:
+def write_data(episodes: list[dict[str, object]]) -> bool:
     new_data = {"episodes": episodes}
     current_data = None
 

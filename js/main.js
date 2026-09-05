@@ -149,6 +149,9 @@
   }
 
   function isYouTubeShort(episode) {
+    if (Number.isFinite(Number(episode.durationSeconds)) && Number(episode.durationSeconds) <= 180) {
+      return true;
+    }
     if (/(^|\s)#shorts?\b/i.test(String(episode.title || ''))) {
       return true;
     }
