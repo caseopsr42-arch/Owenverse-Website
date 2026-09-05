@@ -13,7 +13,9 @@ from urllib.request import Request, urlopen
 
 CHANNEL_ID = "UC-y0fmq1aQ4HmtvLr60aJAw"
 API_URL = "https://www.googleapis.com/youtube/v3/search"
+VIDEO_API_URL = "https://www.googleapis.com/youtube/v3/videos"
 DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "episodes.json"
+SHORT_MAX_SECONDS = 180
 
 
 def fetch_feed(api_key: str) -> bytes:
@@ -21,6 +23,32 @@ def fetch_feed(api_key: str) -> bytes:
     request = Request(query, headers={"User-Agent": "Owenverse-Episode-Updater/1.0"})
     with urlopen(request, timeout=30) as response:
         return response.read()
+
+
+def fetch_durations(api_key: str, video_ids: list[str]) -> dict[str, int]:
+    if not video_ids:
+        return {}
+
+    query = f"{VIDEO_API_URL}?part=contentDetails&id={','.join(video_ids)}&key={api_key}"
+    request = Request(query, headers={"User-Agent": "Owenverse-Episode-Updater/1.0"})
+    with urlopen(request, timeout=30) as response:
+        data = json.load(response)
+
+    durations = {}
+    for item in data.get("items", []):
+        video_id = item.get("id", "")
+        duration = parse_iso_duration(item.get("contentDetails", {}).get("duration", ""))
+        if video_id and duration is not None:
+            durations[video_id] = duration
+    return durations
+
+
+def parse_iso_duration(duration: str) -> int | None:
+    match = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", duration)
+    if not match:
+        return None
+    hours, minutes, seconds = (int(value or 0) for value in match.groups())
+    return hours * 3600 + minutes * 60 + seconds
 
 
 def relative_date(published: str) -> str:
@@ -65,7 +93,9 @@ def load_existing() -> dict[str, dict[str, str]]:
     return existing
 
 
-def parse_episodes(feed: bytes, existing: dict[str, dict[str, str]]) -> list[dict[str, str]]:
+def parse_episodes(
+    feed: bytes, existing: dict[str, dict[str, str]], durations: dict[str, int]
+) -> list[dict[str, str]]:
     data = json.loads(feed)
     episodes = []
 
@@ -74,7 +104,7 @@ def parse_episodes(feed: bytes, existing: dict[str, dict[str, str]]) -> list[dic
         video_id = item.get("id", {}).get("videoId", "")
         title = clean_title(snippet.get("title", ""))
         published = snippet.get("publishedAt", "")
-        if not video_id or not title or not published:
+        if not video_id or not title or not published or durations.get(video_id, 0) <= SHORT_MAX_SECONDS:
             continue
 
         previous = existing.get(video_id, {})
@@ -116,7 +146,9 @@ def main() -> int:
         if not api_key:
             raise RuntimeError("YOUTUBE_API_KEY is not set.")
         existing = load_existing()
-        episodes = parse_episodes(fetch_feed(api_key), existing)
+        feed = fetch_feed(api_key)
+        video_ids = [item.get("id", {}).get("videoId", "") for item in json.loads(feed).get("items", [])]
+        episodes = parse_episodes(feed, existing, fetch_durations(api_key, video_ids))
         if not episodes:
             raise RuntimeError("The YouTube API returned no episodes.")
         changed = write_data(episodes)
