@@ -458,6 +458,43 @@ button:focus-visible {
   transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
+.social-btn-grid {
+  display: grid;
+  gap: 1rem;
+  margin-inline: auto;
+}
+
+.social-btn-grid--primary {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  max-width: 56rem;
+}
+
+.social-btn-grid--secondary {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: 48rem;
+  margin-top: 1rem;
+}
+
+.social-btn-grid--secondary .social-btn {
+  aspect-ratio: 4 / 3;
+  border-radius: 0.9rem;
+}
+
+.social-btn-grid--secondary .social-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.episode-number {
+  margin-bottom: 0.7rem;
+  color: var(--orange-light);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .social-btn svg {
   width: 2rem;
   height: 2rem;
@@ -600,6 +637,14 @@ button:focus-visible {
 
   .social-btn {
     border-radius: 1rem;
+  }
+
+  .social-btn-grid--primary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .social-btn-grid--secondary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .privacy-notice {

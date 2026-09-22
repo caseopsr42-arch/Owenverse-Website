@@ -192,6 +192,7 @@
           <span class="episode-card__play">${PLAY_ICON}</span>
         </a>
         <div class="p-5">
+          <p class="episode-number">Episode ${escapeHTML(ep.episodeNumber)}</p>
           <p class="text-xs uppercase tracking-widest text-orange-500 font-semibold mb-2" style="color: var(--orange);">${escapeHTML(ep.date)}</p>
           <h2 class="font-heading text-lg font-semibold text-white leading-snug mb-2">
             <a href="${episodeURL}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(ep.title)}" class="hover:underline">${escapeHTML(ep.title)}</a>
@@ -285,8 +286,9 @@
       if (!res.ok) throw new Error('Failed to load episode data');
       const data = await res.json();
       return Array.isArray(data.episodes)
-        ? data.episodes.filter((episode) => !isYouTubeShort(episode)).map((episode) => ({
+        ? data.episodes.filter((episode) => !isYouTubeShort(episode)).map((episode, index, episodes) => ({
           ...episode,
+          episodeNumber: episodes.length - index,
           title: decodeHTML(episode.title),
           description: decodeHTML(episode.description),
           date: decodeHTML(episode.date)
