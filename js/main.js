@@ -85,7 +85,23 @@
 
   /* ---------- Third-party disclosure ---------- */
   const consentKey = 'owenverse-third-party-notice-dismissed';
-  if (!localStorage.getItem(consentKey)) {
+  function getStoredValue(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function setStoredValue(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (err) {
+      // Storage can be unavailable in private or restricted browsing modes.
+    }
+  }
+
+  if (!getStoredValue(consentKey)) {
     const notice = document.createElement('aside');
     notice.className = 'privacy-notice';
     notice.innerHTML = `
@@ -95,7 +111,7 @@
         <button type="button" aria-label="Dismiss privacy notice">Got it</button>
       </div>`;
     notice.querySelector('button').addEventListener('click', () => {
-      localStorage.setItem(consentKey, 'true');
+      setStoredValue(consentKey, 'true');
       notice.remove();
     });
     document.body.appendChild(notice);
@@ -250,9 +266,22 @@
     if (linkEl) linkEl.href = getEpisodeURL(videoId);
   }
 
+  function renderEpisodeError(container) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="episode-error">
+        <p class="font-heading font-semibold text-white mb-2">Episodes are temporarily unavailable.</p>
+        <p class="text-sm mb-4" style="color: var(--grey);">Please try again in a moment.</p>
+        <button type="button" class="btn-outline text-sm">Try again</button>
+      </div>`;
+    container.querySelector('button').addEventListener('click', () => window.location.reload());
+  }
+
   async function loadEpisodes() {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 10000);
     try {
-      const res = await fetch('data/episodes.json');
+      const res = await fetch('data/episodes.json', { signal: controller.signal });
       if (!res.ok) throw new Error('Failed to load episode data');
       const data = await res.json();
       return Array.isArray(data.episodes)
@@ -265,7 +294,9 @@
         : [];
     } catch (err) {
       console.error('Episode data could not be loaded:', err);
-      return [];
+      return null;
+    } finally {
+      window.clearTimeout(timeoutId);
     }
   }
 
@@ -277,6 +308,14 @@
     if (!gridEl && !previewEl && !needsFeatured) return;
 
     const episodes = await loadEpisodes();
+    if (!episodes) {
+      renderEpisodeError(gridEl || previewEl);
+      if (needsFeatured) {
+        needsFeatured.innerHTML = '<p class="episode-error__message">The latest episode is temporarily unavailable.</p>';
+      }
+      return;
+    }
+
     if (!episodes.length) {
       const emptyState = '<p style="color: var(--grey);">Episodes are loading soon — check back shortly.</p>';
       if (gridEl) gridEl.innerHTML = emptyState;

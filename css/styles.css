@@ -405,6 +405,22 @@ button:focus-visible {
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
+.episode-error {
+  padding: 2rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+}
+
+.episode-error__message {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  padding: 2rem;
+  color: var(--grey);
+  text-align: center;
+}
+
 /* --------------------------------------------
    Responsive video embed
    -------------------------------------------- */
