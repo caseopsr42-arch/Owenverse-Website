@@ -345,6 +345,12 @@ button:focus-visible {
 /* --------------------------------------------
    Episode cards
    -------------------------------------------- */
+#episode-grid {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+
 .episode-card {
   background: var(--surface);
   border: 1px solid var(--border);
