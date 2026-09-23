@@ -189,6 +189,7 @@
       <article class="episode-card" data-reveal>
         <a href="${episodeURL}" target="_blank" rel="noopener noreferrer" class="episode-card__thumb" title="${escapeHTML(ep.title)}" aria-label="Watch: ${escapeHTML(ep.title)}">
           <img src="${escapeHTML(thumbSrc)}" data-fallback-src="${escapeHTML(fallbackSrc)}" alt="Thumbnail for ${escapeHTML(ep.title)}" loading="lazy" width="480" height="270">
+          <span class="episode-number-badge">Episode ${escapeHTML(ep.episodeNumber)}</span>
           <span class="episode-card__play">${PLAY_ICON}</span>
         </a>
         <div class="p-5">
