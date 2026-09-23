@@ -486,10 +486,14 @@ button:focus-visible {
 }
 
 .episode-number {
-  margin-bottom: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(255, 173, 112, 0.45);
   color: var(--orange-light);
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
